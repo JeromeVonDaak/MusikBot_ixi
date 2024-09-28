@@ -117,3 +117,6 @@ guild.json
 # Volta
 .pnp.cjs
 .pnp.loader.mjs
+
+# Botconfig (api und so)
+botconfig.js
