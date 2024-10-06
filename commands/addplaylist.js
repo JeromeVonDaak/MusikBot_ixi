@@ -1,8 +1,8 @@
 const { MessageEmbed } = require("discord.js");
 
 module.exports = {
-  name: "clear",
-  description: "Clears the server queue",
+  name: "addplaylists",
+  description: "lets you add playlists",
   usage: "",
   permissions: {
     channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
@@ -55,7 +55,10 @@ module.exports = {
       }
     });
 
-    await client.sendTime(message.channel, "✅ | **Content was written!**");
+    await client.sendTime(
+      message.channel,
+      "✅ | **Playlist has arrived (im Gegensatz zur S7)!**"
+    );
   },
 
   SlashCommand: {

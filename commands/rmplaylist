@@ -1,0 +1,64 @@
+const { MessageEmbed } = require("discord.js");
+
+module.exports = {
+  name: "rmplaylists",
+  description: "removes playlists, everythings gone",
+  usage: "",
+  permissions: {
+    channel: ["VIEW_CHANNEL", "SEND_MESSAGES", "EMBED_LINKS"],
+    member: [],
+  },
+  aliases: ["rmpl"],
+  /**
+   *
+   * @param {import("../structures/DiscordMusicBot")} client
+   * @param {import("discord.js").Message} message
+   * @param {string[]} args
+   * @param {*} param3
+   */
+  run: async (client, message, args, { GuildDB }) => {
+    const fs = require('fs');
+    const readline = require('readline');
+    const fileStream = fs.createReadStream('/home/ixi/MusikBot_ixi/test_file.csv');
+
+    const rl = readline.createInterface({
+      input: fileStream,
+      crlfDelay: Infinity
+    });
+    
+    let playlists = [];
+    
+    
+    for await (const line of rl) {
+        let line_array = line.split(',');   
+        playlists.push(line_array);
+    }
+    
+    playlists.forEach(element => {
+        if(element[0] === args[0]){
+            playlists.splice(playlists.indexOf(element), 1);
+        }
+    });
+    
+    let res = "";
+    playlists.forEach(element => {
+        res = res + element[0] + ',' + element[1] + '\n';
+    });
+
+    fs.writeFile('/home/ixi/MusikBot_ixi/test_file.csv', res, err => {
+        if (err) {
+          console.error(err);
+        } else {
+          // file written successfully
+        }
+      });
+
+    await client.sendTime(message.channel, "✅ | **Playlist ist weg :(**");
+  },
+
+  SlashCommand: {
+    run: async (client, interaction, args, { GuildDB }) => {
+      console.log("");
+    },
+  },
+};
